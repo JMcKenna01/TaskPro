@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS taskpro_db;
+CREATE DATABASE taskpro_db;
