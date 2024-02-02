@@ -1,10 +1,10 @@
 import { Router } from 'express'
-import { Project } from '../../models/Project.js'
+import { Crew } from '../../models/Crew.js'
 import { withAuth } from '../../utils/auth.js'
 
-export const projectRoutes = Router()
+export const crewRoutes = Router()
 
-projectRoutes.get('/', async (req, res) => {
+crewRoutes.post('/', withAuth, async (req, res) => {
   res.json('test respone')
   // try {
   //   const newProject = await Project.create({
@@ -18,21 +18,7 @@ projectRoutes.get('/', async (req, res) => {
   // }
 });
 
-projectRoutes.post('/', withAuth, async (req, res) => {
-  res.json('test respone')
-  // try {
-  //   const newProject = await Project.create({
-  //     ...req.body,
-  //     user_id: req.session.user_id,
-  //   });
-
-  //   res.status(200).json(newProject);
-  // } catch (err) {
-  //   res.status(400).json(err);
-  // }
-});
-
-projectRoutes.delete('/:id', withAuth, async (req, res) => {
+crewRoutes.delete('/:id', withAuth, async (req, res) => {
   res.json('test respone')
   // try {
   //   const projectData = await Project.destroy({

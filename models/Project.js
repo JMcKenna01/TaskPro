@@ -1,5 +1,5 @@
-import { DataTypes } from 'sequelize'
-import { sequelize } from '../config/connection'
+import { DataTypes, Model } from 'sequelize'
+import { sequelize } from '../config/connection.js'
 
 export class Project extends Model {}
 
@@ -18,16 +18,16 @@ Project.init(
     project_phase_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: {
-        model: 'Phase',
-        key: 'id',
-      },
+      // references: {
+      //   model: 'phase',
+      //   key: 'id',
+      // },
     },
     project_super_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'User',
+        model: 'user',
         key: 'id',
       },
     },
@@ -35,7 +35,7 @@ Project.init(
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'User',
+        model: 'user',
         key: 'id',
       },
     },

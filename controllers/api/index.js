@@ -1,8 +1,10 @@
-const router = require('express').Router();
-const userRoutes = require('./userRoutes');
-const projectRoutes = require('./projectRoutes');
+import { Router } from 'express'
+import { userRoutes } from './userRoutes.js'
+import { projectRoutes } from './projectRoutes.js'
+import { crewRoutes } from './crewRoutes.js'
 
-router.use('/users', userRoutes);
-router.use('/projects', projectRoutes);
+export const apiIndex = Router()
 
-module.exports = router;
+apiIndex.use('/users', userRoutes)
+apiIndex.use('/projects', projectRoutes)
+apiIndex.use('/crew', crewRoutes)
