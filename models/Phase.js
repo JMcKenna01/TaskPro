@@ -1,5 +1,5 @@
-import { DataTypes } from 'sequelize'
-import { sequelize } from '../config/connection'
+import { DataTypes, Model } from 'sequelize'
+import { sequelize } from '../config/connection.js'
 
 export class Phase extends Model {}
 

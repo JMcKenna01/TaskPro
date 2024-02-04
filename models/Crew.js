@@ -1,5 +1,5 @@
-import { DataTypes } from 'sequelize'
-import { sequelize } from '../config/connection'
+import { DataTypes, Model } from 'sequelize'
+import { sequelize } from '../config/connection.js'
 
 export class Crew extends Model {}
 
@@ -22,7 +22,7 @@ Crew.init(
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: 'User',
+            model: 'user',
             key: 'id',
         },
     },
@@ -30,7 +30,7 @@ Crew.init(
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: 'User',
+            model: 'user',
             key: 'id',
         },
     },

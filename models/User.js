@@ -1,6 +1,6 @@
-import { DataTypes } from 'sequelize'
+import { DataTypes, Model } from 'sequelize'
 import bcrypt from 'bcrypt'
-import { sequelize } from '../config/connection'
+import { sequelize } from '../config/connection.js'
 
 export class User extends Model {
   checkPassword(loginPw) {
@@ -36,11 +36,11 @@ User.init(
       type: DataTypes.BOOLEAN,
       allowNull: false,
     },
-    crew_id: { // Foreign Key
+    crew_id: {
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {
-        model: 'Crew',
+        model: 'crew',
         key: 'id',
       },
     },
