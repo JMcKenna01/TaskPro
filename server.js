@@ -6,6 +6,7 @@ import path from 'path'
 import { routes } from './controllers/index.js'
 import { sequelize } from './config/connection.js'
 import { helpers } from './utils/helpers.js'
+import './models/Index.js'
 
 const SequelizeStore = SequelizeStoreConstructor(session.Store)
 const app = express()
@@ -38,6 +39,6 @@ app.use(express.static(path.join(toString(process.cwd), 'public')))
 
 app.use(routes)
 
-sequelize.sync({ force: true }).then(() => {
-  app.listen(PORT, () => console.log('Now listening'))
+sequelize.sync({ force: false}).then(() => {
+  app.listen(PORT, () => console.log('Now listening on localhost:3001'))
 })

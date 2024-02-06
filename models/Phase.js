@@ -12,7 +12,7 @@ Phase.init(
       allowNull: false,
     },
     phase_name: {
-      type: DataTypes.STRING(30),
+      type: DataTypes.STRING,
       allowNull: false,
     },
   },
