@@ -4,7 +4,7 @@ import { withAuth } from '../utils/auth.js'
 export const homeRoutes = Router()
 
 homeRoutes.get('/', async (req, res) => {
-  res.json('test respone')
+  res.render('homepage')
   // try {
   //   // Get all projects and JOIN with user data
   //   const projectData = await Project.findAll({
@@ -72,7 +72,7 @@ homeRoutes.get('/profile', withAuth, async (req, res) => {
 });
 
 homeRoutes.get('/login', (req, res) => {
-  res.json('test respone')
+  res.render('login')
   // if (req.session.logged_in) {
   //   res.redirect('/profile');
   //   return;

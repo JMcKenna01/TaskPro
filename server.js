@@ -34,8 +34,12 @@ app.engine('handlebars', hbs.engine)
 app.set('view engine', 'handlebars')
 
 app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-app.use(express.static(path.join(toString(process.cwd), 'public')))
+app.use(express.urlencoded({ extended: false }))
+// app.use(express.static(path.join(toString(process.cwd), 'public')))
+// app.use('/css',express.static(path.join(toString(process.cwd),'public/css')))
+// app.use('/js',express.static(path.join(toString(process.cwd),'public/js')))
+app.use('/public', express.static(process.cwd() + 'public'));
+
 
 app.use(routes)
 
