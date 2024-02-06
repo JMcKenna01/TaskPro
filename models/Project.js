@@ -12,16 +12,16 @@ Project.init(
       allowNull: false,
     },
     project_name: {
-      type: DataTypes.STRING(30),
+      type: DataTypes.STRING,
       allowNull: false,
     },
     project_phase_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      // references: {
-      //   model: 'phase',
-      //   key: 'id',
-      // },
+      references: {
+        model: 'phase',
+        key: 'id',
+      },
     },
     project_super_id: {
       type: DataTypes.INTEGER,
