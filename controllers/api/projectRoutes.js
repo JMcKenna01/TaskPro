@@ -121,7 +121,7 @@ projectRoutes.delete('/:id', async (req, res) => {
     })
 
     if (!deletedProject) {
-      res.status(404).json({ message: 'No Tag found with this id!' });
+      res.status(404).json({ message: 'No project found with this id!' });
       return;
     }
 

@@ -7,4 +7,4 @@ export const apiIndex = Router()
 
 apiIndex.use('/users', userRoutes)
 apiIndex.use('/projects', projectRoutes)
-apiIndex.use('/crew', crewRoutes)
+apiIndex.use('/crews', crewRoutes)
