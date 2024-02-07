@@ -80,3 +80,17 @@ homeRoutes.get('/login', (req, res) => {
 
   // res.render('login');
 });
+
+homeRoutes.get('/managerDashboard',(req,res) => {
+  res.render('managerDashboard')
+});
+
+homeRoutes.get('/supervisorDashboard',(req,res) => {
+  res.render('supervisorDashboard')
+});
+
+homeRoutes.get('/crewDashboard',(req,res) => {
+  res.render('crewDashboard')
+});
+
+
