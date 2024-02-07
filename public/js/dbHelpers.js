@@ -3,7 +3,7 @@ import $ from "./utils/jQuery.js"
 const addBtn = $('#addBtn')
 const logInBtn = $('#logInBtn')
 
-const logIn = async (email, password) => {
+export const devLogIn = async (email, password) => {
     try {
         const user =   {
             "email": "elportu@gmail.com",
@@ -22,6 +22,48 @@ const logIn = async (email, password) => {
     } catch (error) {
         console.error("Error:", error)
     }
+}
+
+export const logIn = async (email, password) => {
+  try {
+      const user =   {
+          "email": email,
+          "password": password
+        }
+      const req = await fetch("/api/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      })
+  
+      const res = await req.json()
+      console.log(res)
+  } catch (error) {
+      console.error("Error:", error)
+  }
+}
+
+export const signUp = async (email, password) => {
+  try {
+      const user =   {
+          "email": "elportu@gmail.com",
+          "password": "password12345"
+        }
+      const req = await fetch("/api/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      })
+  
+      const res = await req.json()
+      console.log(res)
+  } catch (error) {
+      console.error("Error:", error)
+  }
 
 
 
