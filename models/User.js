@@ -4,7 +4,7 @@ import { sequelize } from '../config/connection.js'
 
 export class User extends Model {
   checkPassword(loginPw) {
-    return bcrypt.compareSync(loginPw, this.password)
+    return bcrypt.compare(loginPw, this.password)
   }
 }
 
@@ -50,6 +50,10 @@ User.init(
       validate: {
         len: [8],
       },
+    },
+    task_completed: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
     },
   },
   {

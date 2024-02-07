@@ -1,13 +1,14 @@
 import { Router } from 'express'
 import { User } from '../../models/User.js'
 import { Crew } from '../../models/Crew.js'
+import { withAuth } from '../../utils/auth.js'
 
 export const userRoutes = Router()
 
-userRoutes.get('/', async (req, res) => {
+userRoutes.get('/',  withAuth, async (req, res) => {
   //Gets all projects
   try {
-    const userData = await User.findAll({include: [
+    const userData = await User.findAll({attributes: {exclude: ['password']},include: [
       {
         model: Crew,
         attributes: ['crew_number'],
@@ -27,7 +28,7 @@ userRoutes.get('/', async (req, res) => {
   }
 })
 
-userRoutes.get('/:id', async (req, res) => {
+userRoutes.get('/:id', withAuth, async (req, res) => {
   //Gets one project by ID
   try {
     const userData = await User.findByPk(req.params.id, {include: [
@@ -107,7 +108,7 @@ userRoutes.post('/logout', (req, res) => {
   }
 })
 
-userRoutes.put('/:id', async (req, res) => {
+userRoutes.put('/:id',  withAuth, async (req, res) => {
   // update a project's data by its `id` value
   try {
     const updatedUser = await User.update(req.body, {
@@ -129,7 +130,7 @@ userRoutes.put('/:id', async (req, res) => {
   }  
 })
 
-userRoutes.delete('/:id', async (req, res) => {
+userRoutes.delete('/:id', withAuth, async (req, res) => {
   // deletes project by its `id` value
   try {
     const deletedUser = await User.destroy({

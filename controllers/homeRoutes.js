@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import { withAuth } from '../utils/auth.js'
+import * as models from '../models/Index.js'
 
 export const homeRoutes = Router()
 
@@ -54,21 +55,20 @@ homeRoutes.get('/project/:id', async (req, res) => {
 
 homeRoutes.get('/profile', withAuth, async (req, res) => {
   res.json('test respone')
-  // try {
-  //   const userData = await User.findByPk(req.session.user_id, {
-  //     attributes: { exclude: ['password'] },
-  //     include: [{ model: Project }],
-  //   });
+  try {
+    const userData = await models.User.findByPk(req.session.user_id, {
+      attributes: { exclude: ['password'] },
+    });
 
-  //   const user = userData.get({ plain: true });
+    const user = userData.get({ plain: true });
 
-  //   res.render('profile', {
-  //     ...user,
-  //     logged_in: true
-  //   });
-  // } catch (err) {
-  //   res.status(500).json(err);
-  // }
+    res.render('profile', {
+      ...user,
+      logged_in: true
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 homeRoutes.get('/login', (req, res) => {

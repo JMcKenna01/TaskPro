@@ -5,7 +5,7 @@ import { User } from '../../models/User.js'
 
 export const crewRoutes = Router()
 
-crewRoutes.get('/', async (req, res) => {
+crewRoutes.get('/', withAuth, async (req, res) => {
   //Gets all projects
   try {
     const crewData = await Crew.findAll({include: [
@@ -34,7 +34,7 @@ crewRoutes.get('/', async (req, res) => {
   }
 })
 
-crewRoutes.get('/:id', async (req, res) => {
+crewRoutes.get('/:id', withAuth, async (req, res) => {
   //Gets one project by ID
   try {
     const crewData = await Crew.findByPk(req.params.id, {include: [
@@ -63,7 +63,7 @@ crewRoutes.get('/:id', async (req, res) => {
   }
 })
 
-crewRoutes.post('/', async (req, res) => {
+crewRoutes.post('/', withAuth, async (req, res) => {
   // create a new project
   try {
     const newCrew = await Crew.create({
@@ -79,7 +79,7 @@ crewRoutes.post('/', async (req, res) => {
   }
 })
 
-crewRoutes.put('/:id', async (req, res) => {
+crewRoutes.put('/:id', withAuth, async (req, res) => {
   // update a project's data by its `id` value
   try {
     const updatedCrew = await Crew.update(req.body, {
@@ -101,7 +101,7 @@ crewRoutes.put('/:id', async (req, res) => {
   }  
 })
 
-crewRoutes.delete('/:id', async (req, res) => {
+crewRoutes.delete('/:id', withAuth, async (req, res) => {
   // deletes project by its `id` value
   try {
     const deletedCrew = await Crew.destroy({

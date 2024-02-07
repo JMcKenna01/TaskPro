@@ -8,7 +8,7 @@ const userData = [
     email: "vemparan@gmail.com",
     is_manager: true,
     is_supervisor:false,
-    password: "password12345"
+    password: "password12345",
   },
   {
     first_name: "Simon",
@@ -16,7 +16,8 @@ const userData = [
     email: "sbolivar@gmail.com",
     is_manager: false,
     is_supervisor:true,
-    password: "password12345"
+    password: "password12345",
+    task_completed: 88
   },
   {
     first_name: "Jose Antonio",
@@ -24,7 +25,8 @@ const userData = [
     email: "joseap@gmail.com",
     is_manager: false,
     is_supervisor:true,
-    password: "password12345"
+    password: "password12345",
+    task_completed: 47
   },
   {
     first_name: "Led",
@@ -32,7 +34,8 @@ const userData = [
     email: "ledvarela@gmail.com",
     is_manager: false,
     is_supervisor: false,
-    password: "password12345"
+    password: "password12345",
+    task_completed: 3
   },
   {
     first_name: "Benjamin",
@@ -40,7 +43,8 @@ const userData = [
     email: "erconde@gmail.com",
     is_manager: false,
     is_supervisor: false,
-    password: "password12345"
+    password: "password12345",
+    task_completed: 7
   },
   {
     first_name: "Daniel",
@@ -48,7 +52,8 @@ const userData = [
     email: "dpistola@gmail.com",
     is_manager: false,
     is_supervisor: false,
-    password: "password12345"
+    password: "password12345",
+    task_completed: 4
   },
   {
     first_name: "Victor",
@@ -56,7 +61,8 @@ const userData = [
     email: "nanutria@gmail.com",
     is_manager: false,
     is_supervisor: false,
-    password: "password12345"
+    password: "password12345",
+    task_completed: 7
   },
   {
     first_name: "Alejandra",
@@ -64,7 +70,8 @@ const userData = [
     email: "aleotero@gmail.com",
     is_manager: false,
     is_supervisor: false,
-    password: "password12345"
+    password: "password12345",
+    task_completed: 2
   },
   {
     first_name: "Emilio",
@@ -72,7 +79,8 @@ const userData = [
     email: "elovera@gmail.com",
     is_manager: false,
     is_supervisor: false,
-    password: "password12345"
+    password: "password12345",
+    task_completed: 1
   }
 ]
 
