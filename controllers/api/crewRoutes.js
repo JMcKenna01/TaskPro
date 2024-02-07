@@ -1,13 +1,14 @@
 import { Router } from 'express'
 import { Crew } from '../../models/Crew.js'
 import { withAuth } from '../../utils/auth.js'
+import { User } from '../../models/User.js'
 
 export const crewRoutes = Router()
 
-crewRoutes.get('/', async (req, res) => {
+crewRoutes.get('/', withAuth, async (req, res) => {
   //Gets all projects
   try {
-    const projectData = await Project.findAll({include: [
+    const crewData = await Crew.findAll({include: [
       {
         model: User,
         as: 'supervisor',
@@ -18,18 +19,14 @@ crewRoutes.get('/', async (req, res) => {
         as: 'manager',
         attributes: ['first_name', 'last_name'],
       },
-      {
-        model: Phase,
-        attributes: ['phase_name'],
-      },
     ]})
 
-    if (!projectData) {
-      res.status(404).json({ message: 'No projects found!' });
+    if (!crewData) {
+      res.status(404).json({ message: 'No crews found!' });
       return;
     }
 
-    res.status(200).json(projectData)
+    res.status(200).json(crewData)
 
   } catch (err) {
     console.error(err)
@@ -37,10 +34,10 @@ crewRoutes.get('/', async (req, res) => {
   }
 })
 
-crewRoutes.get('/:id', async (req, res) => {
+crewRoutes.get('/:id', withAuth, async (req, res) => {
   //Gets one project by ID
   try {
-    const projectData = await Project.findByPk(req.params.id, {include: [
+    const crewData = await Crew.findByPk(req.params.id, {include: [
       {
         model: User,
         as: 'supervisor',
@@ -51,18 +48,14 @@ crewRoutes.get('/:id', async (req, res) => {
         as: 'manager',
         attributes: ['first_name', 'last_name'],
       },
-      {
-        model: Phase,
-        attributes: ['phase_name'],
-      },
     ]})
 
-    if (!projectData) {
-      res.status(404).json({ message: 'No project found with this id!' });
+    if (!crewData) {
+      res.status(404).json({ message: 'No crew found with this id!' });
       return;
     }
 
-    res.status(200).json(projectData)
+    res.status(200).json(crewData)
 
   } catch (err) {
     console.error(err)
@@ -70,15 +63,15 @@ crewRoutes.get('/:id', async (req, res) => {
   }
 })
 
-crewRoutes.post('/', async (req, res) => {
+crewRoutes.post('/', withAuth, async (req, res) => {
   // create a new project
   try {
-    const newProject = await Project.create({
+    const newCrew = await Crew.create({
       ...req.body
       // project_manager_id: req.session.user_id,
     })
 
-    res.status(200).json(newProject)
+    res.status(200).json(newCrew)
 
   } catch (err) {
     console.error(err)
@@ -86,21 +79,21 @@ crewRoutes.post('/', async (req, res) => {
   }
 })
 
-crewRoutes.put('/:id', async (req, res) => {
+crewRoutes.put('/:id', withAuth, async (req, res) => {
   // update a project's data by its `id` value
   try {
-    const updatedProject = await Project.update(req.body, {
+    const updatedCrew = await Crew.update(req.body, {
       where: {
         id: req.params.id,
       }
     })
 
-    if (!updatedProject) {
-      res.status(404).json({ message: 'No project found with this id!' });
+    if (!updatedCrew) {
+      res.status(404).json({ message: 'No crew found with this id!' });
       return;
     }
     
-    res.status(200).json(updatedProject)
+    res.status(200).json(updatedCrew)
 
   } catch (err) {
     console.log(err)
@@ -108,22 +101,22 @@ crewRoutes.put('/:id', async (req, res) => {
   }  
 })
 
-crewRoutes.delete('/:id', async (req, res) => {
+crewRoutes.delete('/:id', withAuth, async (req, res) => {
   // deletes project by its `id` value
   try {
-    const deletedProject = await Project.destroy({
+    const deletedCrew = await Crew.destroy({
       where: {
         id: req.params.id,
         // project_manager_id: req.session.user_id,
       },
     })
 
-    if (!deletedProject) {
-      res.status(404).json({ message: 'No Tag found with this id!' });
+    if (!deletedCrew) {
+      res.status(404).json({ message: 'No crew found with this id!' });
       return;
     }
 
-    res.status(200).json(`${deletedProject} Project deleted!`)
+    res.status(200).json(`${deletedCrew} Crew deleted!`)
 
   } catch (err) {
     console.log(err)

@@ -1,7 +1,55 @@
 import { Router } from 'express'
 import { User } from '../../models/User.js'
+import { Crew } from '../../models/Crew.js'
+import { withAuth } from '../../utils/auth.js'
 
 export const userRoutes = Router()
+
+userRoutes.get('/',  withAuth, async (req, res) => {
+  //Gets all projects
+  try {
+    const userData = await User.findAll({attributes: {exclude: ['password']},include: [
+      {
+        model: Crew,
+        attributes: ['crew_number'],
+      },
+    ]})
+
+    if (!userData) {
+      res.status(404).json({ message: 'No users found!' });
+      return;
+    }
+
+    res.status(200).json(userData)
+
+  } catch (err) {
+    console.error(err)
+    res.status(500).json(err)
+  }
+})
+
+userRoutes.get('/:id', withAuth, async (req, res) => {
+  //Gets one project by ID
+  try {
+    const userData = await User.findByPk(req.params.id, {include: [
+      {
+        model: Crew,
+        attributes: ['crew_number'],
+      },
+    ]})
+
+    if (!userData) {
+      res.status(404).json({ message: 'No user found with this ID!' });
+      return;
+    }
+
+    res.status(200).json(userData)
+
+  } catch (err) {
+    console.error(err)
+    res.status(500).json(err)
+  }
+})
 
 userRoutes.post('/', async (req, res) => {
   try {
@@ -60,3 +108,46 @@ userRoutes.post('/logout', (req, res) => {
   }
 })
 
+userRoutes.put('/:id',  withAuth, async (req, res) => {
+  // update a project's data by its `id` value
+  try {
+    const updatedUser = await User.update(req.body, {
+      where: {
+        id: req.params.id,
+      }
+    })
+
+    if (!updatedUser) {
+      res.status(404).json({ message: 'No user found with this id!' });
+      return;
+    }
+    
+    res.status(200).json(updatedUser)
+
+  } catch (err) {
+    console.log(err)
+    res.status(500).json(err)
+  }  
+})
+
+userRoutes.delete('/:id', withAuth, async (req, res) => {
+  // deletes project by its `id` value
+  try {
+    const deletedUser = await User.destroy({
+      where: {
+        id: req.params.id,
+      },
+    })
+
+    if (!deletedUser) {
+      res.status(404).json({ message: 'No user found with this id!' });
+      return;
+    }
+
+    res.status(200).json(`${deletedUser} User deleted!`)
+
+  } catch (err) {
+    console.log(err)
+    res.status(500).json(err)
+  }
+})

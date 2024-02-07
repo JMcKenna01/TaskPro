@@ -2,7 +2,7 @@ import { seedUsers } from './user-seeds.js'
 import { seedProjects } from './project-seeds.js'
 import { seedPhases } from './phase-seeds.js'
 import { seedCrews } from './crew-seeds.js'
-import { updateCrewIds } from './add-crew-seeds.js'
+import { updateCrewIds } from './add-crew-ids.js'
 
 import { sequelize } from '../config/connection.js'
 
