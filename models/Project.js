@@ -22,6 +22,7 @@ Project.init(
         model: 'phase',
         key: 'id',
       },
+      defaultValue: 1
     },
     project_super_id: {
       type: DataTypes.INTEGER,

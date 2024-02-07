@@ -38,7 +38,9 @@ app.use(express.urlencoded({ extended: false }))
 // app.use(express.static(path.join(toString(process.cwd), 'public')))
 // app.use('/css',express.static(path.join(toString(process.cwd),'public/css')))
 // app.use('/js',express.static(path.join(toString(process.cwd),'public/js')))
-app.use('/public', express.static(process.cwd() + 'public'));
+app.use('/public', express.static(process.cwd() + '/public'));
+
+app.get('/test', (req, res) => res.sendFile(path.join(process.cwd(), '/public/test.html')));
 
 
 app.use(routes)
@@ -46,3 +48,4 @@ app.use(routes)
 sequelize.sync({ force: false}).then(() => {
   app.listen(PORT, () => console.log('Now listening on localhost:3001'))
 })
+
