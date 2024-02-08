@@ -4,9 +4,6 @@
     box-sizing: border-box;
 }
 body{
-    display: flex;
-    /* justify-content: center;
-    align-items: center; */
     min-height:100vh;
     background: rgb(0,0,0);
     background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8190255220417634) 50%, rgba(251,254,255,1) 100%);
@@ -122,7 +119,7 @@ body{
     font-family: 'Sixtyfour', sans-serif;
     color: white;
     position: absolute;
-    top: 15%;
+    top: 25%;
     left: 50%;
     transform: translate(-50%, -50%);
   }
@@ -165,6 +162,18 @@ body{
 .card li{
     font-family: 'Orbitron', sans-serif;
 }
+
+
+.profileContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Optional: This ensures the content is centered vertically on the viewport */
+  }
+  
+  .prodfileText {
+    text-align: center; /* Optional: This centers the text horizontally within the child div */
+  }
 
 /* Facebook's open-sourced shimmer effect */
 .shimmer {
