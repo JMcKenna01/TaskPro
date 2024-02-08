@@ -53,22 +53,26 @@ homeRoutes.get('/project/:id', async (req, res) => {
   // }
 });
 
-homeRoutes.get('/profile', withAuth, async (req, res) => {
-  res.json('test respone')
-  try {
-    const userData = await models.User.findByPk(req.session.user_id, {
-      attributes: { exclude: ['password'] },
-    });
+// homeRoutes.get('/profile', withAuth, async (req, res) => {
+//   res.json('test respone')
+//   try {
+//     const userData = await models.User.findByPk(req.session.user_id, {
+//       attributes: { exclude: ['password'] },
+//     });
 
-    const user = userData.get({ plain: true });
+//     const user = userData.get({ plain: true });
 
-    res.render('profile', {
-      ...user,
-      logged_in: true
-    });
-  } catch (err) {
-    res.status(500).json(err);
-  }
+//     res.render('profile', {
+//       ...user,
+//       logged_in: true
+//     });
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
+
+homeRoutes.get('/profile', (req,res) => {
+  res.render('profile')
 });
 
 homeRoutes.get('/login', (req, res) => {
@@ -80,3 +84,17 @@ homeRoutes.get('/login', (req, res) => {
 
   // res.render('login');
 });
+
+homeRoutes.get('/managerDashboard',(req,res) => {
+  res.render('managerDashboard')
+});
+
+homeRoutes.get('/supervisorDashboard',(req,res) => {
+  res.render('supervisorDashboard')
+});
+
+homeRoutes.get('/crewDashboard',(req,res) => {
+  res.render('crewDashboard')
+});
+
+
