@@ -1,24 +1,38 @@
 <section>
-    <div class="project">
-        <h1>Project Overview</h1>
-    </div>
+    <header class="header">
+        <p class="name">TaskPro</p>
 
-    {{!-- display the manager of the project --}}
-    {{!-- display the crew members crew number --}}
-    <div class="card-container">
-        <div class="card">
-            <h2>Project Manager</h2>
-            <p>{{name}}</p>
-            <div class="card-content">
-                <h3>Group #{{group}}</h3>
-                <ul>
-                  {{#each crew}}
-                  <li>{{this.name}}</li>
-                  {{/each}}
-                </ul>
+        <nav class="nav">
+            <a
+                href="{{#if is_manager}}/managerDashboard{{else if is_supervisor}}/supervisorDashboard{{else}}/crewDashboard{{/if}}">
+                Dashboard
+            </a>
+            <a href="#">Logout</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="project">
+            <h1>Project Overview</h1>
+        </div>
+
+        {{!-- display the manager of the project --}}
+        {{!-- display the crew members crew number --}}
+        <div class="card-container">
+            <div class="card">
+                <h2>Project Manager</h2>
+                <p>{{name}}</p>
+                <div class="card-content">
+                    <h3>Group #{{group}}</h3>
+                    <ul>
+                        {{#each crew}}
+                        <li>{{this.name}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
+    </main>
 
     {{!-- display what phase of the project this person is in --}}
 </section>

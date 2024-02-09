@@ -129,7 +129,7 @@ body {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    margin-top: 200px;
+    margin-top: 250px;
 }
 
 .card-container .btn {
@@ -174,7 +174,7 @@ body {
     font-family: 'Sixtyfour', sans-serif;
     color: white;
     position: absolute;
-    top: 15%;
+    top: 22%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -188,7 +188,7 @@ body {
     font-family: 'Sixtyfour', sans-serif;
     color: white;
     position: absolute;
-    top: 15%;
+    top: 25%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
