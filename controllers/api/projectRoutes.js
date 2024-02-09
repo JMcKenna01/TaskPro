@@ -75,10 +75,12 @@ projectRoutes.get('/:id', withAuth, async (req, res) => {
 projectRoutes.post('/', withAuth, async (req, res) => {
   // create a new project
   try {
-    const newProject = await Project.create({
-      ...req.body
-      // project_manager_id: req.session.user_id,
-    })
+    const newProject = {
+      ...req.body,
+      project_manager_id: req.session.user_id,
+    }
+
+    await Project.create(newProject)
 
     res.status(200).json(newProject)
 

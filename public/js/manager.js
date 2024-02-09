@@ -1,47 +1,55 @@
-const newFormHandler = async (event) => {
-  event.preventDefault();
+import $ from "./utils/jQuery.js"
 
-  const name = document.querySelector('#project-name').value.trim();
-  const needed_funding = document.querySelector('#project-funding').value.trim();
-  const description = document.querySelector('#project-desc').value.trim();
+let supervisorDropdown = $('#supervisor-dropdown')
+let supervisorLi = $('.supervisor-li')
+let createBtn = $('#create-btn')
 
-  if (name && needed_funding && description) {
+const newJobHandler = async (event) => {
+  event.preventDefault()
+
+  const name = $('#project-name').val()
+  const supervisorInput = $(supervisorDropdown).text()
+
+  const supervisorReq = await fetch('/api/users/s', {
+    method: 'GET'
+  })
+
+  const supersArray = await supervisorReq.json()
+
+  let supervisorId
+
+  supersArray.forEach(i => {
+    if(supervisorInput === `${i.first_name} ${i.last_name}`){
+      supervisorId = i.id
+    }
+  });
+
+  const newProject = {
+    project_name: name,
+    project_super_id:supervisorId,
+  }
+
+  if (name && supervisorId) {
     const response = await fetch(`/api/projects`, {
       method: 'POST',
-      body: JSON.stringify({ name, needed_funding, description }),
+      body: JSON.stringify(newProject),
       headers: {
         'Content-Type': 'application/json',
       },
-    });
+    })
 
     if (response.ok) {
-      document.location.replace('/profile');
+      document.location.replace('/managerDashboard')
     } else {
-      alert('Failed to create project');
+      alert('Failed to create project')
     }
   }
-};
+}
 
-const delButtonHandler = async (event) => {
-  if (event.target.hasAttribute('data-id')) {
-    const id = event.target.getAttribute('data-id');
+function selectSupervisor (event) {
+  let selection = $(event.target).text()
+  $(supervisorDropdown).text(selection)
+}
 
-    const response = await fetch(`/api/projects/${id}`, {
-      method: 'DELETE',
-    });
-
-    if (response.ok) {
-      document.location.replace('/profile');
-    } else {
-      alert('Failed to delete project');
-    }
-  }
-};
-
-document
-  .querySelector('.new-project-form')
-  .addEventListener('submit', newFormHandler);
-
-document
-  .querySelector('.project-list')
-  .addEventListener('click', delButtonHandler);
+createBtn.on('click', newJobHandler)
+supervisorLi.on('click', selectSupervisor)

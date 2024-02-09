@@ -4,7 +4,7 @@
 
     <nav class="nav">
       <a href="#">Profile</a>
-      <a href="#">Logout</a>
+      <a id="logout">Logout</a>
     </nav>
   </header>
 
@@ -18,10 +18,24 @@
         <h2>Create a Job</h2>
         <div class="card-content">
           <div class="form-group">
-            <input class="createJob" type="text" id="email-login" placeholder="Create a Job">
+            <input class="createJob" type="text" id="project-name" placeholder="New job">
+          </div>
+          <div class="dropdown-center">
+            <button id="supervisor-dropdown" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Assign supervisor:
+            </button>
+            {{#if users.length}}
+              <ul class="dropdown-menu">
+              {{#each users}}
+                <li class="dropdown-item supervisor-li">
+                  <p>{{first_name}} {{last_name}}</p>
+                </li>
+              {{/each}}
+              </ul>
+            {{/if}}
           </div>
           <div class="form-group">
-            <button class="btn btn-primary" type="submit">Submit</button>
+            <button id="create-btn" class="btn btn-primary" type="submit">Create</button>
           </div>
         </div>
       </div>
@@ -50,3 +64,6 @@
     </div>
   </main>
 </section>
+
+<script type="module" src="../public/js/logout.js"></script>
+<script type="module" src="../public/js/manager.js"></script>
