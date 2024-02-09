@@ -1,16 +1,17 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-body{
-    min-height:100vh;
-    background: rgb(0,0,0);
-    background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8190255220417634) 50%, rgba(251,254,255,1) 100%);
+
+body {
+    min-height: 100vh;
+    background: rgb(0, 0, 0);
+    background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.8190255220417634) 50%, rgba(251, 254, 255, 1) 100%);
 }
 
 
-.container{
+.container {
     width: '100%';
     height: 100vh;
     display: flex;
@@ -18,38 +19,38 @@ body{
     justify-content: center;
 }
 
-#welcome{
-    font-family: 'Sixtyfour' , sans-serif;
+#welcome {
+    font-family: 'Sixtyfour', sans-serif;
     text-decoration: none;
     font-size: 100px;
 }
 
-.login{
+.login {
     display: flex;
-    width:100%;
+    width: 100%;
     color: white;
     justify-content: center;
     align-items: center;
 }
 
-.login h2{
+.login h2 {
     font-size: 40px;
     text-align: center;
-    font-family: 'Sixtyfour' , sans-serif;
+    font-family: 'Sixtyfour', sans-serif;
 }
 
-.login .form-group{
+.login .form-group {
     width: 100%;
     height: 50px;
     margin: 30px 0;
 }
 
-.form-group input{
-    width:100%;
-    height:100%;
+.form-group input {
+    width: 100%;
+    height: 100%;
     background: transparent;
-    border:none;
-    outline:none;
+    border: none;
+    outline: none;
     border: 2px solid white;
     border-radius: 40px;
     font-size: 16px;
@@ -57,25 +58,25 @@ body{
     padding: 20px 45px 20px 20px;
 }
 
-.form-group input::placeholder{
+.form-group input::placeholder {
     color: white;
 }
 
-.login .btn{
+.login .btn {
     width: 100%;
     height: 45px;
     background: white;
     border: black;
     border-radius: 40px;
-    color:black;
+    color: black;
 }
 
-.name{
-    font-family: 'Sixtyfour' , sans-serif;
+.name {
+    font-family: 'Sixtyfour', sans-serif;
     font-size: 20px;
 }
 
-.header{
+.header {
     position: absolute;
     top: 0;
     left: 0;
@@ -88,16 +89,16 @@ body{
     z-index: 100;
 }
 
-.nav a{
+.nav a {
     position: relative;
     font-size: 15px;
     color: black;
     text-decoration: none;
     margin-left: 30px;
-    font-family: 'Sixtyfour' , sans-serif;
+    font-family: 'Sixtyfour', sans-serif;
 }
 
-.nav a::before{
+.nav a::before {
     content: '';
     position: absolute;
     top: 100%;
@@ -109,7 +110,7 @@ body{
     transition: all 0.5s ease;
 }
 
-.nav a:hover::before{
+.nav a:hover::before {
     width: 100%;
     transform: scaleX(1);
 }
@@ -122,58 +123,75 @@ body{
     top: 25%;
     left: 50%;
     transform: translate(-50%, -50%);
-  }
+}
 
-  .card-container{
+.card-container {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    margin-top: 200px;
-  }
+    margin-top: 250px;
+}
 
-  .card-container .btn{
+.card-container .btn {
     width: 50%;
     height: 45px;
     background: white;
     border: black;
     border-radius: 40px;
-    color:black;
+    color: black;
     margin-left: 80px;
     margin-top: 15px;
     margin-bottom: 15px;
 }
 
 
-  .card{
-    width:325px;
+.card {
+    width: 325px;
     background-color: gray;
     border-radius: 8px;
-    box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
     margin: 20px;
-  }
+}
 
 
 
-  .card h2{
+.card h2 {
     text-align: center;
     font-family: 'Orbitron', sans-serif;
 }
 
-.card li{
+.card li {
+    font-family: 'Orbitron', sans-serif;
+}
+
+.card h3{
     font-family: 'Orbitron', sans-serif;
 }
 
 
 .profileContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* Optional: This ensures the content is centered vertically on the viewport */
-  }
-  
-  .prodfileText {
-    text-align: center; /* Optional: This centers the text horizontally within the child div */
-  }
+    text-align: center;
+    font-family: 'Sixtyfour', sans-serif;
+    color: white;
+    position: absolute;
+    top: 22%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.prodfileText {
+    text-align: center;
+}
+
+.project{
+    text-align: center;
+    font-family: 'Sixtyfour', sans-serif;
+    color: white;
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 
 /* Facebook's open-sourced shimmer effect */
 .shimmer {
@@ -204,36 +222,40 @@ body{
 
 @-moz-keyframes shimmer {
     0% {
-            background-position: top left;
+        background-position: top left;
     }
+
     100% {
-            background-position: top right;
+        background-position: top right;
     }
 }
 
 @-webkit-keyframes shimmer {
     0% {
-            background-position: top left;
+        background-position: top left;
     }
+
     100% {
-            background-position: top right;
+        background-position: top right;
     }
 }
 
 @-o-keyframes shimmer {
     0% {
-            background-position: top left;
+        background-position: top left;
     }
+
     100% {
-            background-position: top right;
+        background-position: top right;
     }
 }
 
 @keyframes shimmer {
     0% {
-            background-position: top left;
+        background-position: top left;
     }
+
     100% {
-            background-position: top right;
+        background-position: top right;
     }
 }
