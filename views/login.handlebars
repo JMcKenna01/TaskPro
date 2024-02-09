@@ -9,15 +9,27 @@
       <input class="form-input" type="password" id="password-login" placeholder="Password">
     </div>
     <div class="form-group">
-      <button class="btn btn-primary" type="submit">Login</button>
+      <button id="login-btn" class="btn btn-primary" type="submit">Login</button>
     </div>
 
     <div class="register">
       <h2>Sign Up</h2>
     </div>
-
     <div class="form-group">
-      <input class="form-input" type="text" id="name-signup" placeholder="Full Name">
+      <input class="form-input" type="text" id="first-name-signup" placeholder="First name">
+    </div>
+    <div class="form-group">
+      <input class="form-input" type="text" id="last-name-signup" placeholder="Last name">
+    </div>
+    <div class="dropdown-center">
+      <button id="role-dropdown" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Select role:
+      </button>
+      <ul class="dropdown-menu">
+        <li class="dropdown-item role-li">Staff</li>
+        <li class="dropdown-item role-li">Supervisor</li>
+        <li class="dropdown-item role-li">Manager</li>
+      </ul>
     </div>
     <div class="form-group">
       <input class="form-input" type="text" id="email-signup" placeholder="Email">
@@ -26,7 +38,9 @@
       <input class="form-input" type="password" id="password-signup" placeholder="Password">
     </div>
     <div class="form-group">
-      <button class="btn btn-primary" type="submit">Sign Up</button>
+      <button id="signup-btn" class="btn btn-primary" type="submit">Sign Up</button>
     </div>
-  </form>
+  
 </div>
+
+<script type="module" src="../public/js/login.js"></script>

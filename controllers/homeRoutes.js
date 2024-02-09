@@ -71,18 +71,17 @@ homeRoutes.get('/project/:id', async (req, res) => {
 //   }
 // });
 
-homeRoutes.get('/profile', (req,res) => {
+homeRoutes.get('/profile', withAuth, (req,res) => {
   res.render('profile')
 });
 
 homeRoutes.get('/login', (req, res) => {
-  res.render('login')
-  // if (req.session.logged_in) {
-  //   res.redirect('/profile');
-  //   return;
-  // }
-
-  // res.render('login');
+  if (req.session.logged_in) {
+    res.redirect('/profile');
+    return;
+  }else{
+    res.render('login');
+  }
 });
 
 homeRoutes.get('/managerDashboard',(req,res) => {
