@@ -31,10 +31,12 @@ User.init(
     is_manager: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
+      defaultValue: false
     },
     is_supervisor: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
+      defaultValue: false
     },
     crew_id: {
       type: DataTypes.INTEGER,
