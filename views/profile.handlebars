@@ -1,12 +1,26 @@
-<section class="profileBody">
-  <!-- display the users name, member of *crew number* -->
-  <div class="profileContainer">
-        <h1 class="profileTitle">{{name}}'s Profile</h1>
-        <p>Group #{{group}}</p>
-        <p class="emailText">Work Email: {{email}}</p>
-  </div>
+<section>
 
-   <div class="card-container">
+  <header class="header">
+    <p class="name">TaskPro</p>
+
+    <nav class="nav">
+      <a
+        href="{{#if is_manager}}/managerDashboard{{else if is_supervisor}}/supervisorDashboard{{else}}/crewDashboard{{/if}}">
+        Dashboard
+      </a>
+      <a href="#">Logout</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- display the users name, member of *crew number* -->
+    <div class="profileContainer">
+      <h1 class="profileTitle">{{name}}'s Profile</h1>
+      <p>Group #{{group}}</p>
+      <p class="emailText">Work Email: {{email}}</p>
+    </div>
+
+    <div class="card-container">
       <div class="card">
         <h2>Completed Tasks</h2>
         <div class="card-content">
@@ -18,14 +32,5 @@
         </div>
       </div>
     </div>
-
-  <!-- number of completed tasks -->
-
-  <!-- username -->
-
-  <!-- email if provided-->
-
-  
-
+  </main>
 </section>
-
