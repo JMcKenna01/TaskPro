@@ -152,24 +152,8 @@ body{
     margin: 20px;
   }
 
-  .profileCard{
-    width:325px;
-    background-color: gray;
-    border-radius: 8px;
-    box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
-    margin: 20px;
-  }
 
-  .profileCard h2{
-    font-family: 'Orbitron', sans-serif;
-    color:white;
-    text-align: center;
-  }
 
-  .profileCard li{
-    font-family: 'Orbitron', sans-serif;
-    color:white;
-  }
   .card h2{
     text-align: center;
     font-family: 'Orbitron', sans-serif;
@@ -184,12 +168,11 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100vh; /* Optional: This ensures the content is centered vertically on the viewport */
   }
   
-  .profileText {
-    text-align: center; 
-    font-family: 'Sixtyfour', sans-serif;
-    color: white;
+  .prodfileText {
+    text-align: center; /* Optional: This centers the text horizontally within the child div */
   }
 
 /* Facebook's open-sourced shimmer effect */
