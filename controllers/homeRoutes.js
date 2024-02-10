@@ -57,23 +57,22 @@ homeRoutes.get('/project/:id', async (req, res) => {
   // }
 });
 
-// homeRoutes.get('/profile', withAuth, async (req, res) => {
-//   res.json('test respone')
-//   try {
-//     const userData = await models.User.findByPk(req.session.user_id, {
-//       attributes: { exclude: ['password'] },
-//     });
+homeRoutes.get('/profile/:id', withAuth, async (req, res) => {
+  // try {
+  //   const userData = await models.User.findByPk(req.session.user_id, {
+  //     attributes: { exclude: ['password'] },
+  //   });
 
-//     const user = userData.get({ plain: true });
+  //   const user = userData.get({ plain: true });
 
-//     res.render('profile', {
-//       ...user,
-//       logged_in: true
-//     });
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
+  //   res.render('profile', {
+  //     ...user,
+  //     logged_in: true
+  //   });
+  // } catch (err) {
+  //   res.status(500).json(err);
+  // }
+});
 
 <<<<<<< HEAD
 homeRoutes.get('/profile', withAuth, (req,res) => {
