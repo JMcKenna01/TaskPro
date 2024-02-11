@@ -193,6 +193,10 @@ body {
     transform: translate(-50%, -50%);
 }
 
+button{
+    min-width: min-content;
+}
+
 /* Facebook's open-sourced shimmer effect */
 .shimmer {
     text-align: center;

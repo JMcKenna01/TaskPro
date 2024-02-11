@@ -19,4 +19,3 @@ if (process.env.JAWSDB_URL) {
 }
 
 export { sequelize }
-
