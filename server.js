@@ -1,24 +1,23 @@
-import express from 'express';
-import session from 'express-session';
-import SequelizeStoreConstructor from 'connect-session-sequelize';
-import exphbs from 'express-handlebars';
-import path from 'path';
-import { fileURLToPath } from 'url'; // Import for ES Module __filename and __dirname equivalence
-import { routes } from './controllers/index.js';
-// import adminRoutes from './controllers/adminRoutes.js'; // Import adminRoutes
-import { sequelize } from './config/connection.js';
-import { helpers } from './utils/helpers.js';
-import './models/Index.js';
+import express from 'express'
+import session from 'express-session'
+import SequelizeStoreConstructor from 'connect-session-sequelize'
+import exphbs from 'express-handlebars'
+import path from 'path'
+import { routes } from './controllers/index.js'
+import { sequelize } from './config/connection.js'
+import { helpers } from './utils/helpers.js'
 import './scheduledTasks/index.js'; // Imported scheduledTasks
 
-const SequelizeStore = SequelizeStoreConstructor(session.Store);
-const app = express();
-const PORT = process.env.PORT || 3001;
-const hbs = exphbs.create({ helpers });
+import { fileURLToPath } from 'url';
 
-// Using the import.meta.url property that contains the URL of the current module.
-// The fileURLToPath function is used to convert the URL to a file system path
-// __filename will contain the absolute path to the current file
+const SequelizeStore = SequelizeStoreConstructor(session.Store)
+const app = express()
+const PORT = process.env.PORT || 3001
+const hbs = exphbs.create({ helpers })
+
+// using the import.meta.url property that contains the URL of the current module.
+//The fileURLToPath function is used to convert the URL to a file system path
+//__filename will contain the absolute path to the current file
 const __filename = fileURLToPath(import.meta.url);
 
 // The path module is used to extract the directory name from the absolute path stored in __filename
