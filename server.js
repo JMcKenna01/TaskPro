@@ -47,15 +47,10 @@ app.set('view engine', 'handlebars');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-// app.use(express.static(path.join(toString(process.cwd), 'public')))
-// app.use('/css',express.static(path.join(toString(process.cwd),'public/css')))
-// app.use('/js',express.static(path.join(toString(process.cwd),'public/js')))
 app.use('/public', express.static(process.cwd() + '/public')); // Serve static files
-app.get('/test', (req, res) => res.sendFile(path.join(process.cwd(), '/public/test.html'))); // Specific route for serving test.html
 app.use(express.static(path.join(__dirname, 'public'))); // Serve static files from 'public' directory
 
-app.use(routes); // Use the general routes
-// app.use('/admin', adminRoutes); // Use the admin routes
+app.use(routes);
 
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log(`Now listening on localhost:${PORT}`)); // Template literal for PORT
