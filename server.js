@@ -6,7 +6,7 @@ import path from 'path'
 import { routes } from './controllers/index.js'
 import { sequelize } from './config/connection.js'
 import { helpers } from './utils/helpers.js'
-import './models/index.js'
+import './models/Index.js'
 
 import { fileURLToPath } from 'url';
 
