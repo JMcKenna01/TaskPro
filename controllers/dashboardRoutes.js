@@ -1,11 +1,11 @@
 import { Router } from 'express'
-import * as models from '../models/Index.js'
+import { User, Project, Phase } from '../models/Index.js'
 
 export const dashboardRoutes = Router()
 
 dashboardRoutes.get('/manager', async (req,res) => {
   try {
-    const userData = await models.User.findAll({
+    const userData = await User.findAll({
       where: {
         is_supervisor: true
       },
@@ -14,30 +14,30 @@ dashboardRoutes.get('/manager', async (req,res) => {
 
     const users = userData.map((user) => user.get({ plain: true }))
     
-    const projectData = await models.Project.findAll({
+    const projectData = await Project.findAll({
       where: {
       project_manager_id: req.session.user_id
     }, 
     include: [
       {
-        model: models.User,
+        model: User,
         as: 'supervisor',
         attributes: ['first_name', 'last_name'],
       },
       {
-        model: models.User,
+        model: User,
         as: 'manager',
         attributes: ['first_name', 'last_name'],
       },
       {
-        model: models.Phase,
+        model: Phase,
         attributes: ['phase_name'],
       },
     ]})
 
     const projects = projectData.map((project) => project.get({ plain: true }))
 
-    const phaseData = await models.Phase.findAll()
+    const phaseData = await Phase.findAll()
 
     const phases = phaseData.map((phase) => phase.get({ plain: true }))
     
@@ -54,30 +54,30 @@ dashboardRoutes.get('/manager', async (req,res) => {
 
 dashboardRoutes.get('/supervisor', async(req,res) => {
     try {        
-        const projectData = await models.Project.findAll({
+        const projectData = await Project.findAll({
           where: {
           project_super_id: req.session.user_id
         }, 
         include: [
           {
-            model: models.User,
+            model: User,
             as: 'supervisor',
             attributes: ['first_name', 'last_name'],
           },
           {
-            model: models.User,
+            model: User,
             as: 'manager',
             attributes: ['first_name', 'last_name'],
           },
           {
-            model: models.Phase,
+            model: Phase,
             attributes: ['phase_name'],
           },
         ]})
     
         const projects = projectData.map((project) => project.get({ plain: true }))
     
-        const phaseData = await models.Phase.findAll()
+        const phaseData = await Phase.findAll()
     
         const phases = phaseData.map((phase) => phase.get({ plain: true }))
         
@@ -93,27 +93,27 @@ dashboardRoutes.get('/supervisor', async(req,res) => {
 
 dashboardRoutes.get('/crew', async (req,res) => {
     try {
-        const userData = await models.User.findByPk(req.session.user_id, {
+        const userData = await User.findByPk(req.session.user_id, {
             attributes: { exclude: ['password'] }
         })
 
-        const projectData = await models.Project.findAll({
+        const projectData = await Project.findAll({
           where: {
           project_crew_id: userData.crew_id
         }, 
         include: [
           {
-            model: models.User,
+            model: User,
             as: 'supervisor',
             attributes: ['first_name', 'last_name'],
           },
           {
-            model: models.User,
+            model: User,
             as: 'manager',
             attributes: ['first_name', 'last_name'],
           },
           {
-            model: models.Phase,
+            model: Phase,
             attributes: ['phase_name'],
           },
         ]})

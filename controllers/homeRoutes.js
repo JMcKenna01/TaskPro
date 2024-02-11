@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { withAuth } from '../utils/auth.js'
-import * as models from '../models/Index.js'
+import { User, Project, Phase } from '../models/Index.js'
 
 export const homeRoutes = Router()
 
@@ -10,20 +10,20 @@ homeRoutes.get('/', async (req, res) => {
 
 homeRoutes.get('/projects/:id', withAuth, async (req, res) => {
   try {
-    const projectData = await models.Project.findByPk(req.params.id, { 
+    const projectData = await Project.findByPk(req.params.id, { 
     include: [
       {
-        model: models.User,
+        model: User,
         as: 'supervisor',
         attributes: ['first_name', 'last_name'],
       },
       {
-        model: models.User,
+        model: User,
         as: 'manager',
         attributes: ['first_name', 'last_name'],
       },
       {
-        model: models.Phase,
+        model: Phase,
         attributes: ['phase_name'],
       },
     ]})
@@ -42,7 +42,7 @@ homeRoutes.get('/projects/:id', withAuth, async (req, res) => {
 
 homeRoutes.get('/profile', withAuth, async (req, res) => {
   try {
-    const userData = await models.User.findByPk(req.session.user_id, {
+    const userData = await User.findByPk(req.session.user_id, {
       attributes: { exclude: ['password'] },
     })
 
