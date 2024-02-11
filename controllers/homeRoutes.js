@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { withAuth } from '../utils/auth.js'
-import { User, Project, Phase } from '../models/Index.js'
+import { User, Project, Phase } from '../models/index.js'
 
 export const homeRoutes = Router()
 

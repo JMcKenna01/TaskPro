@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { User, Project, Phase } from '../models/Index.js'
+import { User, Project, Phase } from '../models/index.js'
 
 export const dashboardRoutes = Router()
 
