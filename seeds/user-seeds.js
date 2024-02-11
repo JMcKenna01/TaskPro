@@ -2,8 +2,7 @@ import { User } from '../models/User.js'
 import bcrypt from 'bcrypt'
 
 const keyword = process.env.SEED_PASS
-const saltCount = process.env.SALT_ROUNDS
-const hash = bcrypt.hashSync(keyword, saltCount)
+const hash = bcrypt.hashSync(keyword, 10)
 
 const userData = [
   {
