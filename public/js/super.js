@@ -1,47 +1,58 @@
-const newFormHandler = async (event) => {
-  event.preventDefault();
+import $ from "./utils/jQuery.js"
 
-  const name = document.querySelector('#project-name').value.trim();
-  const needed_funding = document.querySelector('#project-funding').value.trim();
-  const description = document.querySelector('#project-desc').value.trim();
+let projectDropdown = $('#project-dropdown')
+let phaseDropdown = $('#phase-dropdown')
+let projectLi = $('.project-li')
+let phaseLi = $('.phase-li')
+let updateBtn = $('#update-btn')
 
-  if (name && needed_funding && description) {
-    const response = await fetch(`/api/projects`, {
-      method: 'POST',
-      body: JSON.stringify({ name, needed_funding, description }),
+const updateJobHandler = async (event) => {
+  event.preventDefault()
+
+  const projectToUpdate = $(projectDropdown).attr('project-id')
+  const newPhase = $(phaseDropdown).attr('phase-id')
+
+
+  const updatedProject = {
+    project_phase_id: newPhase
+  }
+
+  if (projectToUpdate && newPhase) {
+    const response = await fetch(`/api/projects/${projectToUpdate}`, {
+      method: 'PUT',
+      body: JSON.stringify(updatedProject),
       headers: {
         'Content-Type': 'application/json',
       },
-    });
+    })
 
     if (response.ok) {
-      document.location.replace('/profile');
+      document.location.replace('/dashboard/supervisor')
     } else {
-      alert('Failed to create project');
+      alert('Failed to create project')
     }
   }
-};
+}
 
-const delButtonHandler = async (event) => {
-  if (event.target.hasAttribute('data-id')) {
-    const id = event.target.getAttribute('data-id');
+function dropdownSelection (event) {
+  let selection = $(event.target).text()
+  let selector = $(event.target).attr('class')
 
-    const response = await fetch(`/api/projects/${id}`, {
-      method: 'DELETE',
-    });
-
-    if (response.ok) {
-      document.location.replace('/profile');
-    } else {
-      alert('Failed to delete project');
-    }
+  switch (selector) {
+    case 'project-li':
+      let projectSelected = $(event.target).attr('project-id')
+      $(projectDropdown).text(selection)
+      $(projectDropdown).attr('project-id', projectSelected)
+    break;
+    case 'phase-li':
+      let phaseSelected = $(event.target).attr('phase-id')
+      $(phaseDropdown).text(selection)
+      $(phaseDropdown).attr('phase-id', phaseSelected)
+    break;
   }
-};
+}
 
-document
-  .querySelector('.new-project-form')
-  .addEventListener('submit', newFormHandler);
 
-document
-  .querySelector('.project-list')
-  .addEventListener('click', delButtonHandler);
+updateBtn.on('click', updateJobHandler)
+projectLi.on('click', dropdownSelection)
+phaseLi.on('click', dropdownSelection)

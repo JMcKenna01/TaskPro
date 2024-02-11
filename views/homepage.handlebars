@@ -1,18 +1,10 @@
 <section>
   <div class="card-img-overlay">
     <div class="flex-column justify-space-around">
-      <header class="display-flex justify-space-between text-end p-2">
-        <nav>
-          {{#if logged_in}}
-          <a href="/dashboard">Profile</a> |
-          <button class="no-button" id="logout">logout</button>
-          {{else}}
-          {{/if}}
-        </nav>
-      </header>
       <main>
         <div class="container">
-          <h1 class="text-center"><a href="/login" id="welcome" class="shimmer">TaskPro</a></h1>
+          <h1 class="text-center"><a href="/profile" id="welcome" class="shimmer">TaskPro</a></h1>
+          <p>(Click to start)</p>
         </div>
       </main>
     </div>

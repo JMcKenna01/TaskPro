@@ -3,6 +3,7 @@ import { seedProjects } from './project-seeds.js'
 import { seedPhases } from './phase-seeds.js'
 import { seedCrews } from './crew-seeds.js'
 import { updateCrewIds } from './add-crew-ids.js'
+import { updateProjectCrewIds } from './add-project-crew-id.js'
 
 import { sequelize } from '../config/connection.js'
 
@@ -21,6 +22,7 @@ const seedAll = async () => {
   console.log('\n----- CREWS SEEDED -----\n')
 
   await seedProjects()
+  await updateProjectCrewIds()
   console.log('\n----- PROJECTS SEEDED -----\n')
 
   process.exit(0)

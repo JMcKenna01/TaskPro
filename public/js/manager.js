@@ -1,32 +1,26 @@
 import $ from "./utils/jQuery.js"
 
 let supervisorDropdown = $('#supervisor-dropdown')
+let projectDropdown = $('#project-dropdown')
+let phaseDropdown = $('#phase-dropdown')
 let supervisorLi = $('.supervisor-li')
+let projectLi = $('.project-li')
+let phaseLi = $('.phase-li')
 let createBtn = $('#create-btn')
+let updateBtn = $('#update-btn')
+let deleteBtn = $('#delete-btn')
 
 const newJobHandler = async (event) => {
   event.preventDefault()
 
   const name = $('#project-name').val()
-  const supervisorInput = $(supervisorDropdown).text()
-
-  const supervisorReq = await fetch('/api/users/s', {
-    method: 'GET'
-  })
-
-  const supersArray = await supervisorReq.json()
-
-  let supervisorId
-
-  supersArray.forEach(i => {
-    if(supervisorInput === `${i.first_name} ${i.last_name}`){
-      supervisorId = i.id
-    }
-  });
+  const supervisorId = $(supervisorDropdown).attr('supervisor-id')
+  const crewId = $(supervisorDropdown).attr('crew-id')
 
   const newProject = {
     project_name: name,
     project_super_id:supervisorId,
+    crew_id: crewId
   }
 
   if (name && supervisorId) {
@@ -39,17 +33,87 @@ const newJobHandler = async (event) => {
     })
 
     if (response.ok) {
-      document.location.replace('/managerDashboard')
+      document.location.replace('/dashboard/manager')
     } else {
-      alert('Failed to create project')
+      alert('Failed to created project')
     }
   }
 }
 
-function selectSupervisor (event) {
+const updateJobHandler = async (event) => {
+  event.preventDefault()
+
+  const projectToUpdate = $(projectDropdown).attr('project-id')
+  const newPhase = $(phaseDropdown).attr('phase-id')
+
+
+  const updatedProject = {
+    project_phase_id: newPhase
+  }
+
+  if (projectToUpdate && newPhase) {
+    const response = await fetch(`/api/projects/${projectToUpdate}`, {
+      method: 'PUT',
+      body: JSON.stringify(updatedProject),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+
+    if (response.ok) {
+      document.location.replace('/dashboard/manager')
+    } else {
+      alert('Failed to update project')
+    }
+  }
+}
+
+const deleteJobHandler = async (event) => {
+  event.preventDefault()
+
+  const projectToDelete = $(projectDropdown).attr('project-id')
+
+  if (projectToDelete) {
+    const response = await fetch(`/api/projects/${projectToDelete}`, {
+      method: 'DELETE'
+    })
+
+    if (response.ok) {
+      document.location.replace('/dashboard/manager')
+    } else {
+      alert('Failed to delete project')
+    }
+  }
+}
+
+function dropdownSelection (event) {
   let selection = $(event.target).text()
-  $(supervisorDropdown).text(selection)
+  let selector = $(event.target).attr('class')
+
+  switch (selector) {
+    case 'supervisor-li':
+      let supervisorSelected = $(event.target).attr('supervisor-id')
+      let crewSelected = $(event.target).attr('crew-id')
+      $(supervisorDropdown).text(selection)
+      $(supervisorDropdown).attr('supervisor-id', supervisorSelected)
+      $(supervisorDropdown).attr('crew-id-id', crewSelected)
+    break;
+    case 'project-li':
+      let projectSelected = $(event.target).attr('project-id')
+      $(projectDropdown).text(selection)
+      $(projectDropdown).attr('project-id', projectSelected)
+    break;
+    case 'phase-li':
+      let phaseSelected = $(event.target).attr('phase-id')
+      $(phaseDropdown).text(selection)
+      $(phaseDropdown).attr('phase-id', phaseSelected)
+    break;
+  }
 }
 
 createBtn.on('click', newJobHandler)
-supervisorLi.on('click', selectSupervisor)
+updateBtn.on('click', updateJobHandler)
+deleteBtn.on('click', deleteJobHandler)
+supervisorLi.on('click', dropdownSelection)
+projectLi.on('click', dropdownSelection)
+phaseLi.on('click', dropdownSelection)

@@ -5,7 +5,7 @@ import { withAuth } from '../../utils/auth.js'
 
 export const userRoutes = Router()
 
-userRoutes.get('/',  withAuth, async (req, res) => {
+userRoutes.get('/',  withAuth,  async (req, res) => {
   //Gets all users
   try {
     const userData = await User.findAll({attributes: {exclude: ['password']},include: [
@@ -28,7 +28,7 @@ userRoutes.get('/',  withAuth, async (req, res) => {
   }
 })
 
-userRoutes.get('/:role',  withAuth, async (req, res) => {
+userRoutes.get('/:role', withAuth,  async (req, res) => {
   //Gets supervisors and managers, takes 's' or 'm' parameter
   try {
     let userData
@@ -90,6 +90,7 @@ userRoutes.post('/', async (req, res) => {
     req.session.save(() => {
       req.session.user_id = userData.id
       req.session.logged_in = true
+      req.session.auth = { is_manager: userData.is_manager, is_supervisor: userData.is_supervisor}
 
       res.status(200).json(userData)
     })
@@ -121,7 +122,8 @@ userRoutes.post('/login', async (req, res) => {
     req.session.save(() => {
       req.session.user_id = userData.id
       req.session.logged_in = true
-      
+      req.session.auth = { is_manager: userData.is_manager, is_supervisor: userData.is_supervisor}
+
       res.json({ user: userData, message: 'You are now logged in!' })
     })
 
@@ -140,7 +142,7 @@ userRoutes.post('/logout', (req, res) => {
   }
 })
 
-userRoutes.put('/:id',  withAuth, async (req, res) => {
+userRoutes.put('/:id', withAuth, async (req, res) => {
   // update a project's data by its `id` value
   try {
     const updatedUser = await User.update(req.body, {

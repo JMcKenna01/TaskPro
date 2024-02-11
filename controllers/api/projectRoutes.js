@@ -1,12 +1,11 @@
 import { Router } from 'express'
 import { Project } from '../../models/Project.js'
-import { withAuth } from '../../utils/auth.js'
 import { User } from '../../models/User.js'
 import { Phase } from '../../models/Phase.js'
 
 export const projectRoutes = Router()
 
-projectRoutes.get('/', withAuth, async (req, res) => {
+projectRoutes.get('/', async (req, res) => {
   //Gets all projects
   try {
     const projectData = await Project.findAll({include: [
@@ -39,7 +38,7 @@ projectRoutes.get('/', withAuth, async (req, res) => {
   }
 })
 
-projectRoutes.get('/:id', withAuth, async (req, res) => {
+projectRoutes.get('/:id', async (req, res) => {
   //Gets one project by ID
   try {
     const projectData = await Project.findByPk(req.params.id, {include: [
@@ -72,7 +71,7 @@ projectRoutes.get('/:id', withAuth, async (req, res) => {
   }
 })
 
-projectRoutes.post('/', withAuth, async (req, res) => {
+projectRoutes.post('/', async (req, res) => {
   // create a new project
   try {
     const newProject = {
@@ -90,7 +89,7 @@ projectRoutes.post('/', withAuth, async (req, res) => {
   }
 })
 
-projectRoutes.put('/:id', withAuth, async (req, res) => {
+projectRoutes.put('/:id', async (req, res) => {
   // update a project's data by its `id` value
   try {
     const updatedProject = await Project.update(req.body, {
@@ -112,7 +111,7 @@ projectRoutes.put('/:id', withAuth, async (req, res) => {
   }  
 })
 
-projectRoutes.delete('/:id', withAuth, async (req, res) => {
+projectRoutes.delete('/:id', async (req, res) => {
   // deletes project by its `id` value
   try {
     const deletedProject = await Project.destroy({

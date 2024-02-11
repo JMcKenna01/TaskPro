@@ -8,33 +8,38 @@ homeRoutes.get('/', async (req, res) => {
   res.render('homepage')
 })
 
+homeRoutes.get('/projects/:id', withAuth, async (req, res) => {
+  try {
+    const projectData = await models.Project.findByPk(req.params.id, { 
+    include: [
+      {
+        model: models.User,
+        as: 'supervisor',
+        attributes: ['first_name', 'last_name'],
+      },
+      {
+        model: models.User,
+        as: 'manager',
+        attributes: ['first_name', 'last_name'],
+      },
+      {
+        model: models.Phase,
+        attributes: ['phase_name'],
+      },
+    ]})
 
-homeRoutes.get('/project',(req,res) => {
-  res.render('project')
-})
+    const project = projectData.get({ plain: true })
 
+    console.log(req.session.auth)
 
-homeRoutes.get('/project/:id', async (req, res) => {
-  res.json('test respone')
-  // try {
-  //   const projectData = await Project.findByPk(req.params.id, {
-  //     include: [
-  //       {
-  //         model: User,
-  //         attributes: ['name'],
-  //       },
-  //     ],
-  //   })
-
-  //   const project = projectData.get({ plain: true })
-
-  //   res.render('project', {
-  //     ...project,
-  //     logged_in: req.session.logged_in
-  //   })
-  // } catch (err) {
-  //   res.status(500).json(err)
-  // }
+    res.render('project', {
+      ...project,
+      ...req.session.auth,
+      logged_in: req.session.logged_in
+    })
+  } catch (err) {
+    res.status(500).json(err)
+  }
 })
 
 homeRoutes.get('/profile', withAuth, async (req, res) => {
@@ -44,7 +49,7 @@ homeRoutes.get('/profile', withAuth, async (req, res) => {
     })
 
     const user = userData.get({ plain: true })
-
+    
     res.render('profile', {
       ...user,
       logged_in: true
@@ -62,33 +67,3 @@ homeRoutes.get('/login', (req, res) => {
     res.render('login')
   }
 })
-
-homeRoutes.get('/managerDashboard', withAuth, async (req,res) => {
-  try {
-    const userData = await models.User.findAll({
-      where: {
-        is_supervisor: true
-      },
-      attributes: { exclude: ['password'] },
-    })
-
-    const users = userData.map((user) => user.get({ plain: true }))
-
-    res.render('managerDashboard', {
-      users: users,
-      logged_in: true
-    })
-  } catch (err) {
-    res.status(500).json(err)
-  }
-})
-
-homeRoutes.get('/supervisorDashboard',(req,res) => {
-  res.render('supervisorDashboard')
-})
-
-homeRoutes.get('/crewDashboard',(req,res) => {
-  res.render('crewDashboard')
-})
-
-
