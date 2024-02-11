@@ -1,6 +1,5 @@
 {
-  "name": "taskpro_db",
-  "type": "module",
+  "name": "taskpro",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
