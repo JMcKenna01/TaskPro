@@ -1,52 +1,98 @@
 <section>
-  <header class="header">
-    <p class="name">TaskPro</p>
 
-    <nav class="nav">
-      <a href="#">Profile</a>
-      <a href="#">Logout</a>
-    </nav>
-  </header>
+  {{>header-profile}}
 
   <main>
     <div class="title">
       <h1>Manager Dashboard</h1>
     </div>
 
-    <div class="card-container">
-      <div class="card">
+    <div class="card-container row">
+      <div class="card col-6">
         <h2>Create a Job</h2>
         <div class="card-content">
           <div class="form-group">
-            <input class="createJob" type="text" id="email-login" placeholder="Create a Job">
+            <input class="createJob" type="text" id="project-name" placeholder="New job">
+          </div>
+          <div class="dropdown-center">
+            <button id="supervisor-dropdown" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Assign supervisor:
+            </button>
+            {{#if users.length}}
+              <ul class="dropdown-menu">
+              {{#each users}}
+                <li class="dropdown-item supervisor-li">
+                  <p class="supervisor-li" supervisor-id="{{id}}" crew-id="{{crew_id}}">{{first_name}} {{last_name}}</p>
+                </li>
+              {{/each}}
+              </ul>
+            {{/if}}
           </div>
           <div class="form-group">
-            <button class="btn btn-primary" type="submit">Submit</button>
+            <button id="create-btn" class="btn btn-primary" type="submit">Create</button>
           </div>
         </div>
       </div>
 
-      <div class="card">
+      <div class="card col-6">
         <h2>Update Job</h2>
         <div class="card-content">
-          <ul>
-            <li>This</li>
-            <li>is </li>
-            <li>temporary</li>
-          </ul>
+          <div class="dropdown-center">
+            <button id="project-dropdown" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Select task:
+            </button>
+            {{#if projects.length}}
+              <ul class="dropdown-menu">
+              {{#each projects}}
+                <li class="dropdown-item project-li">
+                  <p id="project-update" project-id="{{id}}" class="project-li">{{project_name}}</p>
+                </li>
+              {{/each}}
+              </ul>
+            {{/if}}
+          </div>
+          <div class="dropdown-center">
+            <button id="phase-dropdown" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Updated phase:
+            </button>
+            {{#if phases.length}}
+              <ul class="dropdown-menu">
+              {{#each phases}}
+                <li class="dropdown-item phase-li" >
+                  <p id="phase-selection" phase-id="{{id}}" class="phase-li" >{{phase_name}}</p>
+                </li>
+              {{/each}}
+              </ul>
+            {{/if}}
+          </div>
+          <div class="form-group">
+            <button id="update-btn" class="btn btn-primary" type="submit">Update</button>
+          </div>
+          <div class="form-group">
+            <button id="delete-btn" class="btn btn-primary" type="submit">Delete</button>
+          </div>
         </div>
       </div>
 
-      <div class="card">
+      <div class="card col-12">
         <h2>Tasks</h2>
         <div class="card-content">
-          <ul>
-            <li>Task one</li>
-            <li>Task two</li>
-            <li>Task three</li>
-          </ul>
+          {{#if projects.length}}
+            <ul>
+            {{#each projects}}
+              <li class="col-12 border border-light rounded-1 my-2">
+                <a class="text-decoration-none text-light" href="/projects/{{id}}">
+                  <h3 class="m-1">{{project_name}}</h3>
+                  <p class="m-1">{{phase.phase_name}}</p>
+                </a>
+              </li>
+            {{/each}}
+            </ul>
+          {{/if}}
         </div>
       </div>
     </div>
   </main>
 </section>
+
+<script type="module" src="../public/js/manager.js"></script>

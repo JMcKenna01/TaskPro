@@ -1,47 +1,119 @@
-const newFormHandler = async (event) => {
-  event.preventDefault();
+import $ from "./utils/jQuery.js"
 
-  const name = document.querySelector('#project-name').value.trim();
-  const needed_funding = document.querySelector('#project-funding').value.trim();
-  const description = document.querySelector('#project-desc').value.trim();
+let supervisorDropdown = $('#supervisor-dropdown')
+let projectDropdown = $('#project-dropdown')
+let phaseDropdown = $('#phase-dropdown')
+let supervisorLi = $('.supervisor-li')
+let projectLi = $('.project-li')
+let phaseLi = $('.phase-li')
+let createBtn = $('#create-btn')
+let updateBtn = $('#update-btn')
+let deleteBtn = $('#delete-btn')
 
-  if (name && needed_funding && description) {
+const newJobHandler = async (event) => {
+  event.preventDefault()
+
+  const name = $('#project-name').val()
+  const supervisorId = $(supervisorDropdown).attr('supervisor-id')
+  const crewId = $(supervisorDropdown).attr('crew-id')
+
+  const newProject = {
+    project_name: name,
+    project_super_id:supervisorId,
+    crew_id: crewId
+  }
+
+  if (name && supervisorId) {
     const response = await fetch(`/api/projects`, {
       method: 'POST',
-      body: JSON.stringify({ name, needed_funding, description }),
+      body: JSON.stringify(newProject),
       headers: {
         'Content-Type': 'application/json',
       },
-    });
+    })
 
     if (response.ok) {
-      document.location.replace('/profile');
+      document.location.replace('/dashboard/manager')
     } else {
-      alert('Failed to create project');
+      alert('Failed to created project')
     }
   }
-};
+}
 
-const delButtonHandler = async (event) => {
-  if (event.target.hasAttribute('data-id')) {
-    const id = event.target.getAttribute('data-id');
+const updateJobHandler = async (event) => {
+  event.preventDefault()
 
-    const response = await fetch(`/api/projects/${id}`, {
-      method: 'DELETE',
-    });
+  const projectToUpdate = $(projectDropdown).attr('project-id')
+  const newPhase = $(phaseDropdown).attr('phase-id')
+
+
+  const updatedProject = {
+    project_phase_id: newPhase
+  }
+
+  if (projectToUpdate && newPhase) {
+    const response = await fetch(`/api/projects/${projectToUpdate}`, {
+      method: 'PUT',
+      body: JSON.stringify(updatedProject),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
 
     if (response.ok) {
-      document.location.replace('/profile');
+      document.location.replace('/dashboard/manager')
     } else {
-      alert('Failed to delete project');
+      alert('Failed to update project')
     }
   }
-};
+}
 
-document
-  .querySelector('.new-project-form')
-  .addEventListener('submit', newFormHandler);
+const deleteJobHandler = async (event) => {
+  event.preventDefault()
 
-document
-  .querySelector('.project-list')
-  .addEventListener('click', delButtonHandler);
+  const projectToDelete = $(projectDropdown).attr('project-id')
+
+  if (projectToDelete) {
+    const response = await fetch(`/api/projects/${projectToDelete}`, {
+      method: 'DELETE'
+    })
+
+    if (response.ok) {
+      document.location.replace('/dashboard/manager')
+    } else {
+      alert('Failed to delete project')
+    }
+  }
+}
+
+function dropdownSelection (event) {
+  let selection = $(event.target).text()
+  let selector = $(event.target).attr('class')
+
+  switch (selector) {
+    case 'supervisor-li':
+      let supervisorSelected = $(event.target).attr('supervisor-id')
+      let crewSelected = $(event.target).attr('crew-id')
+      $(supervisorDropdown).text(selection)
+      $(supervisorDropdown).attr('supervisor-id', supervisorSelected)
+      $(supervisorDropdown).attr('crew-id-id', crewSelected)
+    break;
+    case 'project-li':
+      let projectSelected = $(event.target).attr('project-id')
+      $(projectDropdown).text(selection)
+      $(projectDropdown).attr('project-id', projectSelected)
+    break;
+    case 'phase-li':
+      let phaseSelected = $(event.target).attr('phase-id')
+      $(phaseDropdown).text(selection)
+      $(phaseDropdown).attr('phase-id', phaseSelected)
+    break;
+  }
+}
+
+createBtn.on('click', newJobHandler)
+updateBtn.on('click', updateJobHandler)
+deleteBtn.on('click', deleteJobHandler)
+supervisorLi.on('click', dropdownSelection)
+projectLi.on('click', dropdownSelection)
+phaseLi.on('click', dropdownSelection)

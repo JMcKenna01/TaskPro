@@ -5,8 +5,8 @@ import { withAuth } from '../../utils/auth.js'
 
 export const userRoutes = Router()
 
-userRoutes.get('/',  withAuth, async (req, res) => {
-  //Gets all projects
+userRoutes.get('/',  withAuth,  async (req, res) => {
+  //Gets all users
   try {
     const userData = await User.findAll({attributes: {exclude: ['password']},include: [
       {
@@ -16,8 +16,40 @@ userRoutes.get('/',  withAuth, async (req, res) => {
     ]})
 
     if (!userData) {
-      res.status(404).json({ message: 'No users found!' });
-      return;
+      res.status(404).json({ message: 'No users found!' })
+      return
+    }
+
+    res.status(200).json(userData)
+
+  } catch (err) {
+    console.error(err)
+    res.status(500).json(err)
+  }
+})
+
+userRoutes.get('/:role', withAuth,  async (req, res) => {
+  //Gets supervisors and managers, takes 's' or 'm' parameter
+  try {
+    let userData
+    
+    if (req.params.role === 'm'){
+      userData = await User.findAll({
+        where: {
+          is_manager: true
+        },
+        attributes: { exclude: ['password'] },
+      })
+    } else if (req.params.role === 's'){
+      userData = await User.findAll({
+        where: {
+          is_supervisor: true
+        },
+        attributes: { exclude: ['password'] },
+      })
+    } else if (!userData) {
+      res.status(404).json({ message: 'No users found!' })
+      return
     }
 
     res.status(200).json(userData)
@@ -39,8 +71,8 @@ userRoutes.get('/:id', withAuth, async (req, res) => {
     ]})
 
     if (!userData) {
-      res.status(404).json({ message: 'No user found with this ID!' });
-      return;
+      res.status(404).json({ message: 'No user found with this ID!' })
+      return
     }
 
     res.status(200).json(userData)
@@ -58,6 +90,7 @@ userRoutes.post('/', async (req, res) => {
     req.session.save(() => {
       req.session.user_id = userData.id
       req.session.logged_in = true
+      req.session.auth = { is_manager: userData.is_manager, is_supervisor: userData.is_supervisor}
 
       res.status(200).json(userData)
     })
@@ -89,7 +122,8 @@ userRoutes.post('/login', async (req, res) => {
     req.session.save(() => {
       req.session.user_id = userData.id
       req.session.logged_in = true
-      
+      req.session.auth = { is_manager: userData.is_manager, is_supervisor: userData.is_supervisor}
+
       res.json({ user: userData, message: 'You are now logged in!' })
     })
 
@@ -108,7 +142,7 @@ userRoutes.post('/logout', (req, res) => {
   }
 })
 
-userRoutes.put('/:id',  withAuth, async (req, res) => {
+userRoutes.put('/:id', withAuth, async (req, res) => {
   // update a project's data by its `id` value
   try {
     const updatedUser = await User.update(req.body, {
@@ -118,8 +152,8 @@ userRoutes.put('/:id',  withAuth, async (req, res) => {
     })
 
     if (!updatedUser) {
-      res.status(404).json({ message: 'No user found with this id!' });
-      return;
+      res.status(404).json({ message: 'No user found with this id!' })
+      return
     }
     
     res.status(200).json(updatedUser)
@@ -140,8 +174,8 @@ userRoutes.delete('/:id', withAuth, async (req, res) => {
     })
 
     if (!deletedUser) {
-      res.status(404).json({ message: 'No user found with this id!' });
-      return;
+      res.status(404).json({ message: 'No user found with this id!' })
+      return
     }
 
     res.status(200).json(`${deletedUser} User deleted!`)

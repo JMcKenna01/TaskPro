@@ -1,5 +1,8 @@
 import { User } from '../models/Index.js'
+import bcrypt from 'bcrypt'
 
+const keyword = process.env.SEED_PASS
+const hash = bcrypt.hashSync(keyword, 10)
 
 const userData = [
   {
@@ -8,7 +11,7 @@ const userData = [
     email: "vemparan@gmail.com",
     is_manager: true,
     is_supervisor:false,
-    password: "password12345",
+    password: hash,
   },
   {
     first_name: "Simon",
@@ -16,7 +19,7 @@ const userData = [
     email: "sbolivar@gmail.com",
     is_manager: false,
     is_supervisor:true,
-    password: "password12345",
+    password: hash,
     task_completed: 88
   },
   {
@@ -25,7 +28,7 @@ const userData = [
     email: "joseap@gmail.com",
     is_manager: false,
     is_supervisor:true,
-    password: "password12345",
+    password: hash,
     task_completed: 47
   },
   {
@@ -34,7 +37,7 @@ const userData = [
     email: "ledvarela@gmail.com",
     is_manager: false,
     is_supervisor: false,
-    password: "password12345",
+    password: hash,
     task_completed: 3
   },
   {
@@ -43,7 +46,7 @@ const userData = [
     email: "erconde@gmail.com",
     is_manager: false,
     is_supervisor: false,
-    password: "password12345",
+    password: hash,
     task_completed: 7
   },
   {
@@ -52,7 +55,7 @@ const userData = [
     email: "dpistola@gmail.com",
     is_manager: false,
     is_supervisor: false,
-    password: "password12345",
+    password: hash,
     task_completed: 4
   },
   {
@@ -61,7 +64,7 @@ const userData = [
     email: "nanutria@gmail.com",
     is_manager: false,
     is_supervisor: false,
-    password: "password12345",
+    password: hash,
     task_completed: 7
   },
   {
@@ -70,7 +73,7 @@ const userData = [
     email: "aleotero@gmail.com",
     is_manager: false,
     is_supervisor: false,
-    password: "password12345",
+    password: hash,
     task_completed: 2
   },
   {
@@ -79,7 +82,7 @@ const userData = [
     email: "elovera@gmail.com",
     is_manager: false,
     is_supervisor: false,
-    password: "password12345",
+    password: hash,
     task_completed: 1
   }
 ]

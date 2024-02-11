@@ -24,7 +24,7 @@ const loginFormHandler = async (event) => {
       // If successful, redirect the browser to the profile page
       document.location.replace('/profile')
     } else {
-      alert(response)
+      alert(response.statusText)
     }
   }
 }
@@ -56,7 +56,7 @@ const signupFormHandler = async (event) => {
         newUser.is_manager = true
         break      
     }
-
+    
     const response = await fetch('/api/users', {
       method: 'POST',
       body: JSON.stringify(newUser),

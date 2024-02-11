@@ -1,43 +1,23 @@
 <section>
 
-  <header class="header">
-    <p class="name">TaskPro</p>
-
-    <nav class="nav">
-      <a
-        href="{{#if is_manager}}/managerDashboard{{else if is_supervisor}}/supervisorDashboard{{else}}/crewDashboard{{/if}}">
-        Dashboard
-      </a>
-      <a id="logout">logout</a>
-    </nav>
-  </header>
+{{> header-dashboard}}
 
   <main>
-    <!-- display the users name, member of *crew number* -->
     <div class="profileContainer">
-      <h1 class="profileTitle">{{name}}'s Profile</h1>
-      <p>Group #{{group}}</p>
-      <p class="emailText">Work Email: {{email}}</p>
+      <h1 class="profileTitle">{{first_name}}'s Profile</h1>
     </div>
 
     <div class="card-container">
       <div class="card">
-        <h2>Completed Tasks</h2>
         <div class="card-content">
-          <ul>
-            <li>Task one</li>
-            <li>Task two</li>
-            <li>Task three</li>
-          </ul>
+          <h2>{{last_name}}, {{first_name}}</h2>
+          <h3><strong>Crew #</strong> {{crew_id}}</h3>
+          <h3 class="emailText"><strong>Work Email:</strong><br>{{email}}</h3>
+          <h3><strong>Position:</strong> {{#if is_manager}}manager{{else}}{{#if is_supervisor}}supervisor{{else}}crew{{/if}}{{/if}}</h3>
+          <h4>Tasks completed: {{task_completed}}</h4>
         </div>
       </div>
     </div>
-
-  <!-- number of completed tasks -->
-
-  <!-- username -->
-
-  <!-- email if provided-->
   </main>
 
   <script type="module" src="../public/js/logout.js"></script>

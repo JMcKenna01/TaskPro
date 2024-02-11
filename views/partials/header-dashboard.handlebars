@@ -1,0 +1,14 @@
+  <header class="header">
+    <p class="name">TaskPro</p>
+
+    <nav class="nav">
+      <a
+        href="/dashboard{{#if is_manager}}/manager{{else}}{{#if is_supervisor}}/supervisor{{else}}/crew{{/if}}{{/if}}">
+        Dashboard
+      </a>
+      <a id="logout">logout</a>
+    </nav>
+  </header>
+
+  
+<script type="module" src="../public/js/logout.js"></script>

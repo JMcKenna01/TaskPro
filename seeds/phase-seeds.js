@@ -2,9 +2,6 @@ import { Phase } from '../models/Phase.js'
 
 const phaseData = [
   {
-    phase_name: 'Waiting for assigment'
-  },
-  {
     phase_name: 'Assigned'
   },
   {

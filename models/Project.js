@@ -40,6 +40,14 @@ Project.init(
         key: 'id',
       },
     },
+    project_crew_id: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'crew',
+        key: 'id',
+      },
+    }
   },
   {
     sequelize,
