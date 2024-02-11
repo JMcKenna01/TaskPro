@@ -1,3 +1,5 @@
+import { Op } from 'sequelize'
+import { sequelize } from '../../config/connection.js'
 import { Router } from 'express'
 import { User } from '../../models/User.js'
 import { Crew } from '../../models/Crew.js'
@@ -53,6 +55,38 @@ userRoutes.get('/:role', withAuth,  async (req, res) => {
     }
 
     res.status(200).json(userData)
+
+  } catch (err) {
+    console.error(err)
+    res.status(500).json(err)
+  }
+})
+
+userRoutes.put('/addPoint/:id', withAuth,  async (req, res) => {
+  //Update completed tasks scores
+  try {
+    const userData = await User.findAll({
+      where: {
+        crew_id: req.params.id
+      },
+    })
+    
+    const userIds = userData.map((user) => user.id)
+
+    const updatedUsers = await User.update(
+      { task_completed: sequelize.literal('task_completed + 1') },
+      {  where: {
+        id: {
+          [Op.in]: userIds,
+        },
+      } 
+    })
+
+    if (!updatedUsers) {
+      res.status(404).json({ message: 'No users found!' })
+    }
+
+    res.status(200).json(updatedUsers)
 
   } catch (err) {
     console.error(err)

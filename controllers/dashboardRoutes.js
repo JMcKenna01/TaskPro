@@ -40,8 +40,6 @@ dashboardRoutes.get('/manager', async (req,res) => {
     const phaseData = await models.Phase.findAll()
 
     const phases = phaseData.map((phase) => phase.get({ plain: true }))
-
-    console.log(projects)
     
     res.render('managerDashboard', {
       users: users,

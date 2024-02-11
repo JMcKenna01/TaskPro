@@ -72,8 +72,13 @@ const deleteJobHandler = async (event) => {
   event.preventDefault()
 
   const projectToDelete = $(projectDropdown).attr('project-id')
+  const crewToSum = $(projectDropdown).attr('crew-id')
 
-  if (projectToDelete) {
+  if (projectToDelete && crewToSum) {
+    await fetch(`/api/users/addPoint/${crewToSum}`,{
+      method: 'PUT'
+    })
+
     const response = await fetch(`/api/projects/${projectToDelete}`, {
       method: 'DELETE'
     })
@@ -100,8 +105,10 @@ function dropdownSelection (event) {
     break;
     case 'project-li':
       let projectSelected = $(event.target).attr('project-id')
+      let projectCrew = $(event.target).attr('crew-id')
       $(projectDropdown).text(selection)
       $(projectDropdown).attr('project-id', projectSelected)
+      $(projectDropdown).attr('crew-id', projectCrew)
     break;
     case 'phase-li':
       let phaseSelected = $(event.target).attr('phase-id')

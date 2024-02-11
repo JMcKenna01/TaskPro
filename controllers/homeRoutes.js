@@ -30,8 +30,6 @@ homeRoutes.get('/projects/:id', withAuth, async (req, res) => {
 
     const project = projectData.get({ plain: true })
 
-    console.log(req.session.auth)
-
     res.render('project', {
       ...project,
       ...req.session.auth,
